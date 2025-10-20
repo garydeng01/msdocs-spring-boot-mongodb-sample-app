@@ -4,9 +4,9 @@
 package com.microsoft.azure.appservice.examples.springbootmongodb.dao;
 
 import com.microsoft.azure.appservice.examples.springbootmongodb.model.TodoItem;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TodoItemRepository extends MongoRepository<TodoItem, String> {
+public interface TodoItemRepository extends JpaRepository<TodoItem, Long> {
 }

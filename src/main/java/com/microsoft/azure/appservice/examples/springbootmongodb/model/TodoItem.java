@@ -3,13 +3,18 @@
 
 package com.microsoft.azure.appservice.examples.springbootmongodb.model;
 
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 
 import java.util.Objects;
 
+@Entity
 public class TodoItem {
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String description;
     private String owner;
     private boolean finished;
@@ -17,9 +22,8 @@ public class TodoItem {
     public TodoItem() {
     }
 
-    public TodoItem(String id, String description, String owner) {
+    public TodoItem(String description, String owner) {
         this.description = description;
-        this.id = id;
         this.owner = owner;
         this.finished = false;
     }
@@ -48,11 +52,11 @@ public class TodoItem {
         this.owner = owner;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

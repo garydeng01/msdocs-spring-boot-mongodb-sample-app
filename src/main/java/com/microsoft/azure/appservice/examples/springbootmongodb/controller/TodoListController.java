@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 public class TodoListController {
@@ -37,7 +36,7 @@ public class TodoListController {
      * HTTP GET
      */
     @GetMapping(path = "/api/todolist/{index}", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public TodoItem getTodoItem(@PathVariable("index") String index) {
+    public TodoItem getTodoItem(@PathVariable("index") Long index) {
         logger.info("GET request access '/api/todolist/{}' path.", index);
         return todoItemRepository.findById(index).get();
     }
@@ -60,7 +59,7 @@ public class TodoListController {
     public String addNewTodoItem(@RequestBody TodoItem item) {
         logger.info("POST request access '/api/todolist' path with item: {}", item);
         try {
-            item.setId(UUID.randomUUID().toString());
+            // No need to set ID - it will be auto-generated
             todoItemRepository.save(item);
             return "Todo item created";
         } catch (Exception e) {
@@ -88,7 +87,7 @@ public class TodoListController {
      * HTTP DELETE
      */
     @DeleteMapping("/api/todolist/{id}")
-    public String deleteTodoItem(@PathVariable("id") String id) {
+    public String deleteTodoItem(@PathVariable("id") Long id) {
         logger.info("DELETE request access '/api/todolist/{}' path.", id);
         try {
             todoItemRepository.deleteById(id);
